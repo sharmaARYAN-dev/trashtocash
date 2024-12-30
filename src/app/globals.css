@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+input, textarea,select{
+  border-radius: 6px;
+  border: 1px solid grey;
+}
+
+/* form label{
+  @apply text-xs uppercase;
+} */

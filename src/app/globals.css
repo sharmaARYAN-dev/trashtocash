@@ -2,11 +2,490 @@
 @tailwind components;
 @tailwind utilities;
 
-input, textarea,select{
+input,
+textarea,
+select {
   border-radius: 6px;
   border: 1px solid grey;
 }
 
-/* form label{
-  @apply text-xs uppercase;
-} */
+.header {
+  background-color: #006d5b;
+}
+
+.logoname {
+  color: white;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow: auto; /* Prevents body scroll */
+  height: 100vh;
+}
+
+.content-scrollable {
+  overflow-y: auto; /* Enables vertical scrolling within the content */
+  height: 100%; /* Ensures full height for scrolling */
+}
+
+
+
+
+.fixed-icon {
+  font-size: 16px !important; /* Lock font size */
+  width: 24px;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 24px; /* Prevent shrinking */
+  min-height: 24px;
+  flex-shrink: 0; /* Avoid resizing */
+}
+
+
+.loginbutton {
+  background: #ffa600;
+  border-radius: 6px;
+  padding: 7px 40px;
+
+  color: white;
+  border: none;
+
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.loginbutton:hover {
+  background: #21a39a;
+}
+
+/* General Styling */
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+/* Form Layout */
+.post-form {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+h1 {
+  font-size: 1.2rem;
+  color: #0078d7;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #444;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="tel"],
+input[type="date"],
+textarea,
+select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #f9f9f9;
+  font-size: 0.9rem;
+  transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="tel"]:focus,
+input[type="date"]:focus,
+textarea:focus,
+select:focus {
+  border-color: #0078d7;
+  outline: none;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Switch Component */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 34px;
+  height: 20px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 14px;
+  width: 14px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #28a745;
+}
+
+input:checked + .slider:before {
+  transform: translateX(14px);
+}
+
+/* Upload Section */
+.upload-label {
+  display: inline-block;
+  padding: 10px 275px;
+  padding: center;
+  background-color: rgb(172, 170, 170);
+  color: white;
+  border-radius: 6px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.upload-label:hover {
+  background-color: #6e7b88;
+}
+
+.upload-thumbnails {
+  display: flex;
+  gap: 10px;
+}
+
+.upload-thumbnails img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Button Group Styling */
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+button[type="submit"] {
+  /* padding: 8px 16px;*/
+  padding: 10px 100px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.save-draft-button {
+  padding: 8px 16px;
+
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #218838;
+}
+
+.save-draft-button {
+  background-color: #ff9800;
+}
+
+.save-draft-button:hover {
+  background-color: #e68a00;
+}
+
+/* globals.css */
+/* Container styling */
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f5f5f5;
+}
+
+/* Form styling */
+.signup-form {
+  background-color: #046a5a;
+  /* Dark green */
+  border-radius: 10px;
+  padding: 30px;
+  width: 350px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  color: white;
+  text-align: center;
+}
+
+/* Title styling */
+.form-title {
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* Input field styling */
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  color: #333;
+  background-color: #e0e0e0;
+}
+
+.form-input:focus {
+  outline: none;
+  box-shadow: 0 0 4px #007bff;
+}
+
+/* Button styling */
+.form-button {
+  background-color: #fdbd24;
+  /* Orange color */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.form-button:hover {
+  background-color: #ffa500;
+}
+
+/* Error and success messages */
+.error-message {
+  color: red;
+  font-size: 14px;
+}
+
+.success-message {
+  color: green;
+  font-size: 14px;
+}
+
+/* Login redirect styling */
+.login-redirect {
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.login-link {
+  color: #add8e6;
+  text-decoration: underline;
+}
+
+.login-link:hover {
+  color: #ffffff;
+}
+
+/* Container styling */
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f5f5f5;
+}
+
+/* Form styling */
+.signup-form {
+  background-color: #046a5a;
+  /* Dark green */
+  border-radius: 10px;
+  padding: 30px;
+  width: 350px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  color: white;
+  text-align: center;
+}
+
+/* Title styling */
+.form-title {
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* Input field styling */
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  color: #333;
+  background-color: #e0e0e0;
+}
+
+.form-input:focus {
+  outline: none;
+  box-shadow: 0 0 4px #007bff;
+}
+
+/* Button styling */
+.form-button {
+  background-color: #fdbd24;
+  /* Orange color */
+  color: rgb(0, 0, 0);
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.form-button:hover {
+  background-color: #ffa500;
+}
+
+/* Google login button */
+.google-button {
+  background-color: #ffffff;
+  /* Google red */
+  margin-top: 10px;
+}
+
+.google-button:hover {
+  background-color: #d69317;
+}
+
+/* Error messages */
+.error-message {
+  color: red;
+  font-size: 14px;
+}
+
+/* Redirect to sign-up */
+.login-redirect {
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.login-link {
+  color: #add8e6;
+  text-decoration: underline;
+}
+
+.login-link:hover {
+  color: #ffffff;
+}
+
+/* Sidebar.module.css */
+.sidebar {
+  background-color: #d1d5db;
+  padding: 16px;
+  width: 25%;
+}
+
+.sellbutton,
+.browse-all,
+.inbox,
+.notifications,
+.bcom {
+  width: 100%;
+  width: 20em;
+  /* Full width */
+  height: 3rem;
+  /* Equal height */
+  display: flex;
+  /* Ensure content is centered */
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+}
+
+.browse-all:hover,
+.inbox:hover,
+.notifications:hover,
+.sellbutton:hover {
+  background-color: #e0e0e0;
+  /* Slightly darker grey on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* Subtle shadow on hover */
+}
+
+.bcom {
+  background-color: #006d5b;
+  color: white;
+  border-radius: 6px;
+
+  transition: background-color 0.3s, transform 0.3s;
+  /* Smooth transition for hover effects */
+}
+
+.bcom:hover {
+  background-color: #005a4a;
+  /* Slightly darker green on hover */
+  transform: scale(1.05);
+  /* Slightly enlarge on hover */
+}
+
+

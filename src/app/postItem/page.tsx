@@ -1,4 +1,5 @@
 'use client';
+
 import Uploader from "@/components/Uploader";
 import UploadThumbnails from "@/components/UploadThumbnails";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
@@ -11,119 +12,147 @@ import { createAddItem } from "../actions/adActions";
 import SubmitButton from "@/components/SubmitButton";
 import { redirect } from "next/navigation";
 
+
 export default function NewPostItem() {
   const [files, setFiles] = useState<(UploadResponse | IKUploadResponse)[]>([]);
-  const fileInRef = useRef<HTMLDivElement | null>(null); // Explicitly typed
+  const fileInRef = useRef<HTMLDivElement | null>(null);
   const [isUploading, setIsUploading] = useState(false);
- 
+  const [isUsable, setIsUsable] = useState(false);
 
-    async function handleSubmit(formData:FormData){
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    formData.set("files", JSON.stringify(files));
+    const result = await createAddItem(formData);
+    redirect("/ad/" + result._id);
+  }
 
-        formData.set('files', JSON.stringify(files));
-        const result =await createAddItem(formData);
-        console.log({result});
-        redirect('/ad/'+result._id);
-    }
+  function handleSaveAsDraft() {
+    alert("Item saved as draft! Draft functionality coming soon.");
+  }
+  
 
   return (
-    <form action={handleSubmit} className="grid grid-cols gap-3 justify-center">
-      <div className="grid gap-3 justify-center">
-        <div className="flex items-center gap-4">
-          <Link href="/">
-            <FontAwesomeIcon icon={faArrowLeft} />
-          </Link>
-          <h1>Item details</h1>
-        </div>
-        <label htmlFor="titleIn">title</label>
-        <input type="text" name="title" id="titleIn" placeholder="Title" />
-
-        <label htmlFor="categoryIn">category</label>
-        <select name="category" id="categoryIn">
-          <option defaultValue={"none"} disabled value="">
-            select category
-          </option>
-          <option value="metal">metals</option>
-          <option value="wood">wood</option>
-          <option value="glass">glass</option>
-          <option value="others">others</option>
-        </select>
-        <label htmlFor="adrIn">address</label>
-        <textarea name="address" placeholder="address" id="adrIn"></textarea>
-        <label htmlFor="weightIn">weight</label>
-        <input type="number" name="weight" placeholder="weight" id="weightIn" />
-        <select name="condition" id="conditionIn">
-          <option defaultValue={"none"} disabled value="">
-            select condition
-          </option>
-          <option value="good">good</option>
-          <option value="moderate">moderate</option>
-          <option value="bad">bad</option>
-        </select>
-
-        <label>is usable?</label>
-        <div className="flex gap-3">
-          <input type="radio" name="usable" value="val" id="usableIn" />
-          yes
-          <input type="radio" name="usable" value="nonval" id="usableIn" />
-          no
-        </div>
-
-        <label>is total scrap?</label>
-        <div className="flex gap-3">
-          <input type="radio" name="tscrap" value="tsp" id="TscrapIn" />
-          yes
-          <input type="radio" name="tscrap" value="nontsp" id="TscrapIn" />
-          no
-        </div>
-        <textarea name="contactinfo" placeholder="Contact-info" id="contcIn"></textarea>
-        <textarea name="description" placeholder="description" id="descIn"></textarea>
+    <form onSubmit={handleSubmit} className="post-form">
+      {/* Header */}
+      <div className="form-header">
+        <Link href="/">
+          <FontAwesomeIcon icon={faArrowLeft} />
+        </Link>
+        <h1>Post Your Item</h1>
       </div>
-      <div className="grid grid-cols  justify-centers">
-        <h3>upload image</h3>
+
+      {/* Item Details Section */}
+      <div className="form-section">
+        <label htmlFor="titleIn">Title *</label>
+        <input type="text" name="title" id="titleIn" placeholder="Enter title" required />
+        <br /><br />
+        <label htmlFor="descrp">Description</label>
+      <textarea
+          name="description"
+          placeholder="Description"
+          id="descIn"
+        ></textarea>
+        <label htmlFor="categoryIn">Category *</label>
+        <select name="category" id="categoryIn" required>
+          <option disabled value="">
+            Select category
+          </option>
+          <option value="metal">Metals</option>
+          <option value="wood">Wood</option>
+          <option value="glass">Glass</option>
+          <option value="paper">Papers</option>
+          <option value="Electronics">Electronics</option>
+          <option value="clothing">Clothing</option>
+          <option value="Household">Household</option>
+          <option value="others">Others</option>
+        </select>
+        <br /><br />
+        <label htmlFor="adrIn">Address *</label>
+        <textarea name="address" placeholder="Enter address" id="adrIn" required></textarea>
+<br /><br />
+<label htmlFor="contactIn">Contact *</label>
+        <input type="text" name="contact" id="titleIn" placeholder="Enter Contact Number" required />
         
-
-        <label
-          
-          className={
-            "border bg-blue-300 rounded-xl h-16 w-40 flex justify-center cursor-crosshair items-center "
-          + (
-          isUploading
-          ? ' text-red-500 cursor-not-allowed'
-           : "border bg-gray-300 rounded-xl h-16 w-40 flex justify-center cursor-crosshair items-center ")} 
-         
-        >
-            <div ref={fileInRef} className="hidden">
-          <Uploader
-            onUploadStart={() => setIsUploading(true)}
-            onSuccess={(file) => {
-              setFiles((prev) => [...prev, file]);
-              setIsUploading(false);
-            }}
-          />
-        </div>
-        <span>{isUploading? 'uploading...' : 'add photos' }</span>
-        </label>
-        <div className="grid grid-cols-3 gap-4 pt-3 ">
-        {
-  files.map((file, index) => {
-    // Normalize if the file is an IKUploadResponse
-    const normalizedFile: UploadResponse = {
-      ...file,
-      AITags: file.AITags?.map((tag) => ({
-        name: (tag as any).name || "",
-        confidence: (tag as any).confidence || 0,
-        source: (tag as any).source || "",
-      })),
-    } as UploadResponse;
-
-    return <UploadThumbnails key={file.fileId || index} file={normalizedFile} />;
-  })
-
-}
-        </div>
-  
+        <br /><br />
+        <label htmlFor="weightIn">Weight (kg) </label>
+        <input type="number" name="weight" placeholder="Enter weight" id="weightIn"  />
+<br />
+      
       </div>
-      <SubmitButton>Publish</SubmitButton>
+
+      {/* Usable Value Section */}
+      <div className="form-section">
+        <label>Is it Valuable? *  </label>
+        <label className="switch">
+          <input
+            type="checkbox"
+            onChange={() => setIsUsable(!isUsable)}
+            title="Is it Valuable?"
+          />
+          <span className="slider round"></span>
+        </label>
+        {isUsable && (
+          <div>
+            <label htmlFor="priceIn">Price </label>
+            <input type="number" name="price" id="price" placeholder="Enter price in INR" />
+          </div>
+        )}
+      </div>
+     
+
+
+      {/* Image Upload Section */}
+      <div className="grid grid-cols justify-centers">
+        <h3>Upload image</h3>
+        <label
+          className={
+            "border bg-blue-300 rounded-xl h-16 w-40 flex justify-center cursor-crosshair items-center " +
+            (isUploading
+              ? " text-red-500 cursor-not-allowed"
+              : "border bg-gray-300 rounded-xl h-16 w-40 flex justify-center cursor-crosshair items-center ")
+          }
+        >
+          <div ref={fileInRef} className="hidden">
+            <Uploader
+              onUploadStart={() => setIsUploading(true)}
+              onSuccess={(file) => {
+                setFiles((prev) => [...prev, file]);
+                setIsUploading(false);
+              }}
+            />
+          </div>
+          <span>{isUploading ? "Uploading..." : "Add photos"}</span>
+        </label>
+        <div className="grid grid-cols-3 gap-4 pt-3">
+          {files.map((file, index) => {
+            const normalizedFile: UploadResponse = {
+              ...file,
+              AITags: file.AITags?.map((tag) => ({
+                name: (tag as any).name || "",
+                confidence: (tag as any).confidence || 0,
+                source: (tag as any).source || "",
+              })),
+            } as UploadResponse;
+
+            return (
+              <UploadThumbnails
+                key={file.fileId || index}
+                file={normalizedFile}
+                onClick={() => {}}
+              />
+            );
+          })}
+        </div>
+      </div>
+      {/* Submit & Save Buttons */}
+      <div className="button-group">
+      <button type="button" className="save-draft-button" onClick={handleSaveAsDraft}>
+          Save as Draft
+        </button>
+        <SubmitButton>Publish</SubmitButton>
+
+      </div>
     </form>
   );
 }

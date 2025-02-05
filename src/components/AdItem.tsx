@@ -11,8 +11,8 @@ export default function AdItem({ad}:{ad:Ad}) {
                 className={`bg-white shadow-lg rounded-2xl overflow-hidden hover:shadow-xl transition-shadow duration-200 
                 border ${
                   Number(ad.price) > 0
-                    ? "border-l-8 border-orange-500"
-                    : "border-gray-200"
+                    ? "border-l-4 border-orange-400 border-t-0 border-r-0 border-b-0 "
+                    : "border-black-200"
                 }`}
               >
                 {ad.files?.length > 0 && (

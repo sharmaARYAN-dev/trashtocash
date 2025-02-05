@@ -155,6 +155,9 @@ textarea {
   transition: 0.4s;
   border-radius: 34px;
 }
+.collector{
+  white-space: nowrap;
+}
 
 .slider:before {
   position: absolute;

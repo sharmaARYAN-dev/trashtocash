@@ -5,12 +5,13 @@ import { Ad } from "@/models/Ad";
 import { useEffect, useState } from "react";
 import { FiTag, FiGrid, FiBell, FiUserPlus, FiLayout } from "react-icons/fi";
 import { getSession } from "next-auth/react";
+import { Session } from "next-auth";
 
 export default function Home() {
   const [allAds, setAllAds] = useState<Ad[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isExpanded, setIsExpanded] = useState(true); // Sidebar toggle state
-  const [session, setSession] = useState<any | null>(null);
+  const [session, setSession] = useState<Session | null>(null);
 
   useEffect(() => {
     async function checkSession() {
@@ -115,12 +116,12 @@ export default function Home() {
             {isExpanded && <span>Notification</span>}
           </li>
           <li
-            className="header flex items-center space-x-4 hover:bg-gray-400 rounded-xl p-2 cursor-pointer text-white"
+            className=" collector header flex items-center space-x-4 hover:bg-gray-400 rounded-xl p-2 cursor-pointer text-white"
             title={isExpanded ? "" : "Become a Collector"}
             onClick={() => handleNavigation("/collector")}
           >
             <FiUserPlus size={20} />
-            {isExpanded && <span>Become a Collector</span>}
+            {isExpanded && <span className="collector">Become a Collector</span>}
           </li>
         </ul>
       </div>

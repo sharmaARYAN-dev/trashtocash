@@ -20,28 +20,34 @@ select {
 body {
   margin: 0;
   padding: 0;
-  overflow: auto; /* Prevents body scroll */
+  overflow: auto;
+  /* Prevents body scroll */
   height: 100vh;
 }
 
 .content-scrollable {
-  overflow-y: auto; /* Enables vertical scrolling within the content */
-  height: 100%; /* Ensures full height for scrolling */
+  overflow-y: auto;
+  /* Enables vertical scrolling within the content */
+  height: 100%;
+  /* Ensures full height for scrolling */
 }
 
 
 
 
 .fixed-icon {
-  font-size: 16px !important; /* Lock font size */
+  font-size: 16px !important;
+  /* Lock font size */
   width: 24px;
   height: 24px;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-width: 24px; /* Prevent shrinking */
+  min-width: 24px;     
+  /* Prevent shrinking */
   min-height: 24px;
-  flex-shrink: 0; /* Avoid resizing */
+  flex-shrink: 0;
+  /* Avoid resizing */
 }
 
 
@@ -155,7 +161,8 @@ textarea {
   transition: 0.4s;
   border-radius: 34px;
 }
-.collector{
+
+.collector {
   white-space: nowrap;
 }
 
@@ -171,11 +178,11 @@ textarea {
   border-radius: 50%;
 }
 
-input:checked + .slider {
+input:checked+.slider {
   background-color: #28a745;
 }
 
-input:checked + .slider:before {
+input:checked+.slider:before {
   transform: translateX(14px);
 }
 
@@ -490,5 +497,3 @@ button[type="submit"]:hover {
   transform: scale(1.05);
   /* Slightly enlarge on hover */
 }
-
-

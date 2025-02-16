@@ -3,7 +3,7 @@
 import AdItem from "@/components/AdItem";
 import { Ad } from "@/models/Ad";
 import { useEffect, useState } from "react";
-import { FiTag, FiGrid, FiBell, FiUserPlus, FiLayout } from "react-icons/fi";
+import { FiTag, FiGrid, FiBell, FiUserPlus, FiLayout, FiBookmark, FiUsers, FiFolder, FiStar, FiSettings } from "react-icons/fi";
 import { getSession } from "next-auth/react";
 import { Session } from "next-auth";
 
@@ -77,13 +77,20 @@ export default function Home() {
           isExpanded ? "w-64" : "w-16"
         } flex flex-col p-4 transition-all duration-300`}
       >
-        <form action={handleSearch}>
-          <input name="phrase" type="text" placeholder="Search Trash2Cash" />
+        {/* Search Bar */}
+        <form action={handleSearch} className="mb-6">
+          <input
+            name="phrase"
+            type="text"
+            placeholder="Search Trash2Cash"
+            className="w-full p-2 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500"
+          />
         </form>
+
         {/* Toggle Button */}
         <button
           onClick={() => setIsExpanded(!isExpanded)}
-          className="mb-6 text-black focus:outline-none p-2 rounded-xl flex items-center justify-between w-full transition-all duration-200"
+          className="mb-6 text-black focus:outline-none p-2 rounded-xl flex items-center justify-between w-full transition-all duration-200 hover:bg-gray-300"
         >
           {isExpanded && (
             <span className="text-lg font-semibold text-black">Menu</span>
@@ -93,6 +100,7 @@ export default function Home() {
 
         {/* Menu Items */}
         <ul className="space-y-4">
+          {/* Sell */}
           <li
             className="flex items-center space-x-4 hover:bg-gray-400 rounded-xl p-2 cursor-pointer"
             title={isExpanded ? "" : "Sell"}
@@ -101,6 +109,8 @@ export default function Home() {
             <FiTag size={20} />
             {isExpanded && <span>Sell</span>}
           </li>
+
+          {/* Browse All */}
           <li
             className="flex items-center space-x-4 hover:bg-gray-400 rounded-xl p-2 cursor-pointer"
             title={isExpanded ? "" : "Browse All"}
@@ -108,6 +118,8 @@ export default function Home() {
             <FiGrid size={20} />
             {isExpanded && <span>Browse All</span>}
           </li>
+
+          {/* Notification */}
           <li
             className="flex items-center space-x-4 hover:bg-gray-400 rounded-xl p-2 cursor-pointer"
             title={isExpanded ? "" : "Notification"}
@@ -115,13 +127,62 @@ export default function Home() {
             <FiBell size={20} />
             {isExpanded && <span>Notification</span>}
           </li>
+
+          {/* Become a Collector */}
           <li
-            className=" collector header flex items-center space-x-4 hover:bg-gray-400 rounded-xl p-2 cursor-pointer text-white"
+            className="flex items-center space-x-4 hover:bg-gray-400 rounded-xl p-2 cursor-pointer"
             title={isExpanded ? "" : "Become a Collector"}
             onClick={() => handleNavigation("/collector")}
           >
             <FiUserPlus size={20} />
-            {isExpanded && <span className="collector">Become a Collector</span>}
+            {isExpanded && <span>Become a Collector</span>}
+          </li>
+
+          {/* Categories Section */}
+          <li className="mt-6">
+            <h3 className="text-sm font-semibold text-gray-600 mb-2">
+              {isExpanded ? "Categories" : ""}
+            </h3>
+            <ul className="space-y-2">
+              <li
+                className="flex items-center space-x-4 hover:bg-gray-400 rounded-xl p-2 cursor-pointer"
+                title={isExpanded ? "" : "Custom Feeds"}
+              >
+                <FiBookmark size={20} />
+                {isExpanded && <span>Custom Feeds</span>}
+              </li>
+              <li
+                className="flex items-center space-x-4 hover:bg-gray-400 rounded-xl p-2 cursor-pointer"
+                title={isExpanded ? "" : "Network"}
+              >
+                <FiUsers size={20} />
+                {isExpanded && <span>Network</span>}
+              </li>
+              <li
+                className="flex items-center space-x-4 hover:bg-gray-400 rounded-xl p-2 cursor-pointer"
+                title={isExpanded ? "" : "Bookmarks"}
+              >
+                <FiFolder size={20} />
+                {isExpanded && <span>Bookmarks</span>}
+              </li>
+              <li
+                className="flex items-center space-x-4 hover:bg-gray-400 rounded-xl p-2 cursor-pointer"
+                title={isExpanded ? "" : "Discover"}
+              >
+                <FiStar size={20} />
+                {isExpanded && <span>Discover</span>}
+              </li>
+            </ul>
+          </li>
+
+          {/* Settings */}
+          <li
+            className="flex items-center space-x-4 hover:bg-gray-400 rounded-xl p-2 cursor-pointer"
+            title={isExpanded ? "" : "Settings"}
+            onClick={() => handleNavigation("/settings")}
+          >
+            <FiSettings size={20} />
+            {isExpanded && <span>Settings</span>}
           </li>
         </ul>
       </div>
